@@ -20,7 +20,7 @@ public class ConvertRomeToArabicNumbersSpec {
             "C, 100",
             "D, 500",
             "M, 1000"})
-    public void converts_simple_case(String roman, int arabic) throws Exception {
+    public void converts_simple_cases(String roman, int arabic) throws Exception {
 
         ArabicNumber arabicNumber = romeNumberOf(roman).toArabic();
 
