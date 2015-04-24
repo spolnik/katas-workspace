@@ -19,8 +19,13 @@ public class ConvertRomeToArabicNumbersSpec {
             "L, 50",
             "C, 100",
             "D, 500",
-            "M, 1000"})
-    public void converts_simple_cases(String roman, int arabic) throws Exception {
+            "M, 1000",
+            "IV, 4",
+            "VI, 6",
+            "III, 3",
+            "XCIV, 94"
+    })
+    public void converts_rome_to_arabic_number(String roman, int arabic) throws Exception {
 
         ArabicNumber arabicNumber = romeNumberOf(roman).toArabic();
 

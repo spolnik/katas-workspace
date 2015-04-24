@@ -42,9 +42,31 @@ public final class RomeNumber {
             mappings.put("M", 1000);
         }
 
+        public int convert(final String value) {
 
-        public int convert(String value) {
-            return mappings.get(value);
+            int arabicNumber = 0;
+            int previous = decodeArabic(value, 0);
+
+            for (int i = 1; i < value.length(); i++) {
+                Integer current = decodeArabic(value, i);
+
+                if (previous < current) {
+                    arabicNumber += (current - previous);
+                    previous = 0;
+                } else {
+                    previous += current;
+                }
+            }
+
+            return arabicNumber + previous;
+        }
+
+        private Integer decodeArabic(String value, int index) {
+            return mappings.get(
+                    String.valueOf(
+                            value.charAt(index)
+                    )
+            );
         }
     }
 }
