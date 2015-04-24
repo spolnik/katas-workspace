@@ -50,7 +50,7 @@ public final class RomeNumber {
             for (int i = 1; i < value.length(); i++) {
                 Integer current = decodeArabic(value, i);
 
-                if (previous < current) {
+                if (previous < current && previous > 0) {
                     arabicNumber += (current - previous);
                     previous = 0;
                 } else {
