@@ -24,15 +24,15 @@ public final class RomeNumber {
     public ArabicNumber toArabic() {
 
         return arabicNumberOf(
-                new RomeToArabicNumbersConverter().convert(value())
+                new RomeToArabicNumbersConverter().convertRomeToArabic(value())
         );
     }
 
     static final class RomeToArabicNumbersConverter {
 
-        private final Map<String, Integer> mappings = new HashMap<>();
+        private static final Map<String, Integer> mappings = new HashMap<>();
 
-        public RomeToArabicNumbersConverter() {
+        static {
             mappings.put("I", 1);
             mappings.put("V", 5);
             mappings.put("X", 10);
@@ -42,7 +42,7 @@ public final class RomeNumber {
             mappings.put("M", 1000);
         }
 
-        public int convert(final String value) {
+        public int convertRomeToArabic(final String value) {
 
             int arabicNumber = 0;
             int previous = decodeArabic(value, 0);
@@ -50,22 +50,33 @@ public final class RomeNumber {
             for (int i = 1; i < value.length(); i++) {
                 Integer current = decodeArabic(value, i);
 
-                if (previous < current && previous > 0) {
+                if (isPartOfSubtract(previous, current)) {
                     arabicNumber += (current - previous);
                     previous = 0;
-                } else {
+                } else if (previous == current) {
                     previous += current;
+                } else {
+                    arabicNumber += previous;
+                    previous = current;
                 }
             }
 
             return arabicNumber + previous;
         }
 
+        private boolean isPartOfSubtract(int previous, Integer current) {
+            return previous < current && previous > 0;
+        }
+
         private Integer decodeArabic(String value, int index) {
             return mappings.get(
-                    String.valueOf(
-                            value.charAt(index)
-                    )
+                    stringOf(value, index)
+            );
+        }
+
+        private String stringOf(String value, int index) {
+            return String.valueOf(
+                    value.charAt(index)
             );
         }
     }

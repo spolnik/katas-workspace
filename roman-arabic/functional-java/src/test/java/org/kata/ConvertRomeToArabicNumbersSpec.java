@@ -23,7 +23,12 @@ public class ConvertRomeToArabicNumbersSpec {
             "IV, 4",
             "VI, 6",
             "III, 3",
-            "XCIV, 94"
+            "XCIV, 94",
+            "MCMLIV, 1954",
+            "MCMXC, 1990",
+            "MMXIV, 2014",
+            "XXXXXX, 60",
+            "MMMDCCCXLIV, 3844"
     })
     public void converts_rome_to_arabic_number(String roman, int arabic) throws Exception {
 
