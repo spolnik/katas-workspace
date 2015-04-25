@@ -2,23 +2,28 @@ package org.kata;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import static org.kata.ArabicNumber.arabicNumberOf;
 
-public final class RomeNumber {
+public final class RomanNumber {
 
     private final String value;
 
-    private RomeNumber(String value) {
+    private RomanNumber(String value) {
         this.value = value;
     }
 
-    public static RomeNumber romeNumberOf(String value) {
-        return new RomeNumber(value);
+    public static RomanNumber romeNumberOf(String value) {
+        return new RomanNumber(value);
     }
 
     public String value() {
         return value;
+    }
+
+    public <T> T to(Function<RomanNumber, T> converter) {
+        return converter.apply(this);
     }
 
     public ArabicNumber toArabic() {

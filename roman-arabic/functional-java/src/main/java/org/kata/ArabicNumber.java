@@ -4,8 +4,7 @@ public final class ArabicNumber {
 
     private final int value;
 
-    public ArabicNumber(int value) {
-
+    private ArabicNumber(int value) {
         this.value = value;
     }
 
