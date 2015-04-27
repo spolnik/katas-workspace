@@ -3,6 +3,7 @@ package org.kata;
 import java.util.function.Function;
 
 import static org.kata.ArabicNumber.arabicNumberOf;
+import static org.kata.RomanToArabicMapping.decodeArabic;
 
 public class RomanToArabicConverter implements Function<RomanNumber, ArabicNumber> {
 
@@ -19,17 +20,22 @@ public class RomanToArabicConverter implements Function<RomanNumber, ArabicNumbe
     public int convertRomeToArabic(final String value) {
 
         return reduce(
-                RomanToArabicMapping.decodeArabic(head(value)),
+                decodeArabic(head(value)),
                 tail(value),
                 0
         );
     }
 
     private String tail(String value) {
-        if (value.isEmpty() || value.length() == 1)
+        if (isEmptyOrOneNumeral(value))
             return "";
 
         return value.substring(1, value.length());
+    }
+
+    private boolean isEmptyOrOneNumeral(String value) {
+        return value.isEmpty()
+                || value.length() == 1;
     }
 
     private String head(String value) {
@@ -42,7 +48,7 @@ public class RomanToArabicConverter implements Function<RomanNumber, ArabicNumbe
             return acc + previous;
         }
 
-        Integer current = RomanToArabicMapping.decodeArabic(head(tail));
+        Integer current = decodeArabic(head(tail));
 
         if (isPartOfSubtract(previous, current)) {
             return reduce(0, tail(tail), acc + (current - previous));
