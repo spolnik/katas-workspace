@@ -1,5 +1,3 @@
 rootProject.name = 'functional-java'
 
-include 'functional'
-include 'object'
 

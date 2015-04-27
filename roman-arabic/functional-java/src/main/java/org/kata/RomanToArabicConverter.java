@@ -1,11 +1,8 @@
-package org.kata.functional;
+package org.kata;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
-import static org.kata.functional.ArabicNumber.arabicNumberOf;
-import static org.kata.functional.RomanToArabicConverter.RomanToArabicMapping.decodeArabic;
+import static org.kata.ArabicNumber.arabicNumberOf;
 
 public class RomanToArabicConverter implements Function<RomanNumber, ArabicNumber> {
 
@@ -22,7 +19,7 @@ public class RomanToArabicConverter implements Function<RomanNumber, ArabicNumbe
     public int convertRomeToArabic(final String value) {
 
         return reduce(
-                decodeArabic(head(value)),
+                RomanToArabicMapping.decodeArabic(head(value)),
                 tail(value),
                 0
         );
@@ -45,7 +42,7 @@ public class RomanToArabicConverter implements Function<RomanNumber, ArabicNumbe
             return acc + previous;
         }
 
-        Integer current = decodeArabic(head(tail));
+        Integer current = RomanToArabicMapping.decodeArabic(head(tail));
 
         if (isPartOfSubtract(previous, current)) {
             return reduce(0, tail(tail), acc + (current - previous));
@@ -62,22 +59,4 @@ public class RomanToArabicConverter implements Function<RomanNumber, ArabicNumbe
         return previous < current && previous > 0;
     }
 
-    static class RomanToArabicMapping {
-
-        private static final Map<String, Integer> mappings = new HashMap<>();
-
-        static {
-            mappings.put("I", 1);
-            mappings.put("V", 5);
-            mappings.put("X", 10);
-            mappings.put("L", 50);
-            mappings.put("C", 100);
-            mappings.put("D", 500);
-            mappings.put("M", 1000);
-        }
-
-        static Integer decodeArabic(String value) {
-            return mappings.get(value);
-        }
-    }
 }
