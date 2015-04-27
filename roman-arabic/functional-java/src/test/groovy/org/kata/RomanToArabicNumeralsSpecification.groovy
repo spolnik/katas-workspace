@@ -10,7 +10,7 @@ import static org.kata.RomanNumber.romeNumberOf
 @Unroll
 class RomanToArabicNumeralsSpecification extends Specification {
 
-    def "converts single rome numeral of #roman to #arabic"() {
+    def "The arabic conversion of #roman is #arabic"() {
         expect:
         ArabicNumber arabicNumber = romeNumberOf(roman).to(arabic())
         arabicNumber.value() == arabic
@@ -26,7 +26,7 @@ class RomanToArabicNumeralsSpecification extends Specification {
         "M"     ||   1000
     }
 
-    def "converts multiple rome numerals of #roman to #arabic"() {
+    def "The arabic conversion of multi letter #roman is #arabic"() {
         expect:
         ArabicNumber arabicNumber = romeNumberOf(roman).to(arabic())
         arabicNumber.value() == arabic
