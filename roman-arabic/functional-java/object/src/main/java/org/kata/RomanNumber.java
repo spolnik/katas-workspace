@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static org.kata.ArabicNumber.arabicNumberOf;
+import static org.kata.RomanNumber.RomanToArabicMapping.decodeArabic;
 
 public final class RomanNumber {
 
@@ -31,18 +32,6 @@ public final class RomanNumber {
 
     static final class RomeToArabicNumbersConverter {
 
-        private static final Map<String, Integer> mappings = new HashMap<>();
-
-        static {
-            mappings.put("I", 1);
-            mappings.put("V", 5);
-            mappings.put("X", 10);
-            mappings.put("L", 50);
-            mappings.put("C", 100);
-            mappings.put("D", 500);
-            mappings.put("M", 1000);
-        }
-
         public int convertRomeToArabic(final String value) {
 
             int arabicNumber = 0;
@@ -68,14 +57,29 @@ public final class RomanNumber {
         private boolean isPartOfSubtract(int previous, Integer current) {
             return previous < current && previous > 0;
         }
+    }
 
-        private Integer decodeArabic(String value, int index) {
+    static class RomanToArabicMapping {
+
+        private static final Map<String, Integer> mappings = new HashMap<>();
+
+        static {
+            mappings.put("I", 1);
+            mappings.put("V", 5);
+            mappings.put("X", 10);
+            mappings.put("L", 50);
+            mappings.put("C", 100);
+            mappings.put("D", 500);
+            mappings.put("M", 1000);
+        }
+
+        static Integer decodeArabic(String value, int index) {
             return mappings.get(
                     stringOf(value, index)
             );
         }
 
-        private String stringOf(String value, int index) {
+        private static String stringOf(String value, int index) {
             return String.valueOf(
                     value.charAt(index)
             );
