@@ -1,17 +1,18 @@
-apply plugin: 'java'
-apply plugin: 'groovy'
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = '1.8'
+    version = '1.0'
 
-sourceCompatibility = '1.8'
-version = '1.0'
+    repositories {
+        mavenCentral()
+    }
 
-repositories {
-    mavenCentral()
+    dependencies {
+        testCompile 'junit:junit:4.12',
+                'org.assertj:assertj-core:3.0.0',
+                'org.mockito:mockito-core:1.10.19',
+                'pl.pragmatists:JUnitParams:1.0.4'
+
+    }
 }
 
-dependencies {
-    testCompile 'junit:junit:4.12',
-            'org.assertj:assertj-core:3.0.0',
-            'org.mockito:mockito-core:1.10.19',
-            'pl.pragmatists:JUnitParams:1.0.4'
-
-}

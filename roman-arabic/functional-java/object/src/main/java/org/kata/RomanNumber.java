@@ -22,10 +22,6 @@ public final class RomanNumber {
         return value;
     }
 
-    public <T> T to(Function<RomanNumber, T> converter) {
-        return converter.apply(this);
-    }
-
     public ArabicNumber toArabic() {
 
         return arabicNumberOf(
