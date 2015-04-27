@@ -1,4 +1,4 @@
-package org.kata;
+package org.kata.functional;
 
 public final class ArabicNumber {
 

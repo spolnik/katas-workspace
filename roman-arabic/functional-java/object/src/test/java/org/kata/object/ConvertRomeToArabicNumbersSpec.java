@@ -1,14 +1,12 @@
-package org.kata;
+package org.kata.object;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.function.Function;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.kata.RomanNumber.romeNumberOf;
+import static org.kata.object.RomanNumber.romeNumberOf;
 
 @RunWith(JUnitParamsRunner.class)
 public class ConvertRomeToArabicNumbersSpec {
@@ -32,14 +30,10 @@ public class ConvertRomeToArabicNumbersSpec {
             "XXXXXX, 60",
             "MMMDCCCXLIV, 3844"
     })
-    public void converts_rome_to_arabic_number_as_dsl(String roman, int arabic) throws Exception {
+    public void converts_rome_to_arabic_number(String roman, int arabic) throws Exception {
 
-        ArabicNumber arabicNumber = romeNumberOf(roman).to(arabic());
+        ArabicNumber arabicNumber = romeNumberOf(roman).toArabic();
 
         assertThat(arabicNumber.value()).isEqualTo(arabic);
-    }
-
-    private static Function<RomanNumber, ArabicNumber> arabic() {
-        return new RomanToArabicConverter();
     }
 }

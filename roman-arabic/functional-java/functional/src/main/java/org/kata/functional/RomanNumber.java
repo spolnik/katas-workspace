@@ -1,4 +1,4 @@
-package org.kata;
+package org.kata.functional;
 
 import java.util.function.Function;
 
