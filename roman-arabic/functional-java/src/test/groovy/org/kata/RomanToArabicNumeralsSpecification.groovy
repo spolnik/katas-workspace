@@ -5,15 +5,14 @@ import spock.lang.Unroll
 
 import java.util.function.Function
 
-import static org.kata.RomanNumber.romeNumberOf
+import static org.kata.RomanNumber.romanNumberOf
 
 @Unroll
 class RomanToArabicNumeralsSpecification extends Specification {
 
     def "The arabic conversion of #roman is #arabic"() {
         expect:
-        ArabicNumber arabicNumber = romeNumberOf(roman).to(arabic())
-        arabicNumber.value() == arabic
+        romanNumberOf(roman).to(arabic()) == arabic
 
         where:
         roman   ||   arabic
@@ -28,8 +27,7 @@ class RomanToArabicNumeralsSpecification extends Specification {
 
     def "The arabic conversion of multi letter #roman is #arabic"() {
         expect:
-        ArabicNumber arabicNumber = romeNumberOf(roman).to(arabic())
-        arabicNumber.value() == arabic
+        romanNumberOf(roman).to(arabic()) == arabic
 
         where:
         roman           ||  arabic

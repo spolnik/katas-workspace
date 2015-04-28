@@ -8,11 +8,30 @@ public final class ArabicNumber {
         this.value = value;
     }
 
-    public int value() {
-        return value;
-    }
-
     public static ArabicNumber arabicNumberOf(int value) {
         return new ArabicNumber(value);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+
+        if (o == null) {
+            return false;
+        }
+
+        if (ArabicNumber.class == o.getClass()) {
+            return value == ((ArabicNumber) o).value;
+        }
+
+        return Integer.class == o.getClass()
+                && value == (Integer) o;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return value;
     }
 }

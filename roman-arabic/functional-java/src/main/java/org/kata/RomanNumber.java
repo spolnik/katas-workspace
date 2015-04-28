@@ -10,7 +10,7 @@ public final class RomanNumber {
         this.value = value;
     }
 
-    public static RomanNumber romeNumberOf(String value) {
+    public static RomanNumber romanNumberOf(String value) {
         return new RomanNumber(value);
     }
 
