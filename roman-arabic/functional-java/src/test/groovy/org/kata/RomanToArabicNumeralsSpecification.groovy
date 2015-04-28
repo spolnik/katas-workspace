@@ -10,12 +10,12 @@ import static org.kata.RomanNumber.romanNumberOf
 @Unroll
 class RomanToArabicNumeralsSpecification extends Specification {
 
-    def "The arabic conversion of #roman is #arabic"() {
+    def "The arabic conversion of #value is #arabic"() {
         expect:
-        romanNumberOf(roman).to(arabic()) == arabic
+        romanNumberOf(value).to(arabic()) == arabic
 
         where:
-        roman   ||   arabic
+        value   ||   arabic
         "I"     ||   1
         "V"     ||   5
         "X"     ||   10
@@ -25,12 +25,12 @@ class RomanToArabicNumeralsSpecification extends Specification {
         "M"     ||   1000
     }
 
-    def "The arabic conversion of multi letter #roman is #arabic"() {
+    def "The arabic conversion of multi letter #value is #arabic"() {
         expect:
-        romanNumberOf(roman).to(arabic()) == arabic
+        romanNumberOf(value).to(arabic()) == arabic
 
         where:
-        roman           ||  arabic
+        value           ||  arabic
         "IV"            ||  4
         "VI"            ||  6
         "III"           ||  3

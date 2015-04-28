@@ -5,7 +5,7 @@ import java.util.function.Function;
 import static org.kata.ArabicNumber.arabicNumberOf;
 import static org.kata.RomanToArabicMapping.decodeArabic;
 
-public class RomanToArabicConverter implements Function<RomanNumber, ArabicNumber> {
+class RomanToArabicConverter implements Function<RomanNumber, ArabicNumber> {
 
     @Override
     public ArabicNumber apply(RomanNumber romanNumber) {
