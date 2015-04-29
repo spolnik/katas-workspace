@@ -18,8 +18,10 @@ class ConvertRomanToArabic extends Function[RomanNumber, ArabicNumber] {
   }
 
   private def reduce(previous: Int, tail: String, acc: Int): Int = tail match {
-    case "" => acc + previous
-    case _ => reduceNextNumeral(previous, tail, acc)
+    case "" =>
+      acc + previous
+    case _ =>
+      reduceNextNumeral(previous, tail, acc)
   }
 
   private def reduceNextNumeral(previous: Int, tail: String, acc: Int): Int = {
@@ -38,9 +40,12 @@ class ConvertRomanToArabic extends Function[RomanNumber, ArabicNumber] {
     }
 
     current match {
-      case x: Int if isPartOfSubtract(previous, x) => reduceMultiLetterRomanNumeral
-      case y: Int if previous == y => reduceAsPartialElementOfMultiLetterRomanNumeral
-      case _ => reduceRomanNumeral
+      case x: Int if isPartOfSubtract(previous, x) =>
+        reduceMultiLetterRomanNumeral
+      case y: Int if previous == y =>
+        reduceAsPartialElementOfMultiLetterRomanNumeral
+      case _ =>
+        reduceRomanNumeral
     }
   }
 
