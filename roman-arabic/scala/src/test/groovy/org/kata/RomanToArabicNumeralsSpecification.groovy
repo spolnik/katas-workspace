@@ -3,15 +3,17 @@ package org.kata
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import static org.kata.RomanNumber.romanNumberOf
+
 @Unroll
 class RomanToArabicNumeralsSpecification extends Specification {
 
-    def "The arabic conversion of #value is #result"() {
+    def "The arabic conversion of #value is #arabic"() {
         expect:
-        new RomanNumber(value).to(arabic()) == result
+        romanNumberOf(value).toArabic() == arabic
 
         where:
-        value   ||   result
+        value   ||   arabic
         "I"     ||   1
         "V"     ||   5
         "X"     ||   10
@@ -21,12 +23,12 @@ class RomanToArabicNumeralsSpecification extends Specification {
         "M"     ||   1000
     }
 
-    def "The arabic conversion of multi letter #value is #result"() {
+    def "The arabic conversion of multi letter #value is #arabic"() {
         expect:
-        new RomanNumber(value).to(arabic()) == result
+        romanNumberOf(value).toArabic() == arabic
 
         where:
-        value           ||  result
+        value           ||  arabic
         "IV"            ||  4
         "VI"            ||  6
         "III"           ||  3
@@ -36,9 +38,5 @@ class RomanToArabicNumeralsSpecification extends Specification {
         "MMXIV"         ||  2014
         "XXXXXX"        ||  60
         "MMMDCCCXLIV"   ||  3844
-    }
-
-    def arabic() {
-        new ConvertRomanToArabic()
     }
 }
