@@ -1,8 +1,6 @@
 package org.kata
 
-import org.kata.RomanToArabicMapping.decodeArabic
-
-class ConvertRomanToArabic extends Function[RomanNumber,ArabicNumber] {
+class ConvertRomanToArabic extends Function[RomanNumber, ArabicNumber] {
 
   override def apply(romanNumber: RomanNumber): ArabicNumber = {
 
@@ -19,25 +17,44 @@ class ConvertRomanToArabic extends Function[RomanNumber,ArabicNumber] {
     )
   }
 
-  private def reduce(previous: Int, tail: String, acc: Integer): Int = {
-    if (tail.isEmpty) {
-      return acc + previous
-    }
-
-    val current: Int = decodeArabic(tail.head)
-
-    if (isPartOfSubtract(previous, current)) {
-      return reduce(0, tail.tail, acc + (current - previous))
-    }
-
-    if (previous == current) {
-      return reduce(previous + current, tail.tail, acc)
-    }
-
-    reduce(current, tail.tail, acc + previous)
+  private def reduce(previous: Int, tail: String, acc: Int): Int = tail match {
+    case "" => acc + previous
+    case _ => reduceNextNumeral(previous, tail, acc)
   }
 
-  private def isPartOfSubtract(previous: Int, current: Int) =
-    previous < current && previous > 0
+  private def reduceNextNumeral(previous: Int, tail: String, acc: Int): Int = {
+    val current = decodeArabic(tail.head)
 
+    def reduceMultiLetterRomanNumeral = {
+      reduce(0, tail.tail, acc + (current - previous))
+    }
+
+    def reduceAsPartialElementOfMultiLetterRomanNumeral = {
+      reduce(previous + current, tail.tail, acc)
+    }
+
+    def reduceRomanNumeral = {
+      reduce(current, tail.tail, acc + previous)
+    }
+
+    current match {
+      case x: Int if isPartOfSubtract(previous, x) => reduceMultiLetterRomanNumeral
+      case y: Int if previous == y => reduceAsPartialElementOfMultiLetterRomanNumeral
+      case _ => reduceRomanNumeral
+    }
+  }
+
+  private def isPartOfSubtract(previous: Int, current: Int) = {
+    previous < current && previous > 0
+  }
+
+  private def decodeArabic(value: Char) = value match {
+    case 'I' => 1
+    case 'V' => 5
+    case 'X' => 10
+    case 'L' => 50
+    case 'C' => 100
+    case 'D' => 500
+    case 'M' => 1000
+  }
 }
