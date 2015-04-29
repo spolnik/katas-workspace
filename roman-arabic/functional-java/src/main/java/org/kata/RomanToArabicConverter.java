@@ -13,11 +13,11 @@ class RomanToArabicConverter implements Function<RomanNumber, ArabicNumber> {
         String value = romanNumber.value();
 
         return arabicNumberOf(
-                convertRomeToArabic(value)
+                convertRomanToArabic(value)
         );
     }
 
-    public int convertRomeToArabic(final String value) {
+    public int convertRomanToArabic(final String value) {
 
         return reduce(
                 decodeArabic(head(value)),
@@ -61,7 +61,7 @@ class RomanToArabicConverter implements Function<RomanNumber, ArabicNumber> {
         return reduce(current, tail(tail), acc + previous);
     }
 
-    private boolean isPartOfSubtract(int previous, Integer current) {
+    private boolean isPartOfSubtract(int previous, int current) {
         return previous < current && previous > 0;
     }
 
