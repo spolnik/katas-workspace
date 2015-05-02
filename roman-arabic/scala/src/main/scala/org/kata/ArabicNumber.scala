@@ -1,7 +1,6 @@
 package org.kata
 
-class ArabicNumber(number: Int) {
-  val value = number
+class ArabicNumber(private val value: Int) {
 
   def canEqual(other: Any): Boolean =
     other.isInstanceOf[ArabicNumber] || other.isInstanceOf[Integer]

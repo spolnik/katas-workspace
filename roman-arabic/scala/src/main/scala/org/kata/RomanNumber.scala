@@ -1,12 +1,13 @@
 package org.kata
 
-class RomanNumber(input: String) {
-  val romanNumeral = input
+import org.kata.RomanNumber.arabicNumberOf
+
+class RomanNumber(private val romanNumeral: String) {
 
   def toArabic: ArabicNumber = {
 
     val arabicNumber = reduce(
-      decodeArabic(romanNumeral.head),
+      arabicNumberOf(romanNumeral.head),
       romanNumeral.tail,
       0
     )
@@ -23,7 +24,7 @@ class RomanNumber(input: String) {
   }
 
   private def reduceNextNumeral(previous: Int, tail: String, acc: Int): Int = {
-    val current = decodeArabic(tail.head)
+    val current = arabicNumberOf(tail.head)
 
     def reduceMultiLetterRomanNumeral = {
       reduce(0, tail.tail, acc + (current - previous))
@@ -50,8 +51,12 @@ class RomanNumber(input: String) {
   private def isPartOfSubtract(previous: Int, current: Int) = {
     previous < current && previous > 0
   }
+}
 
-  private def decodeArabic(value: Char) = value match {
+object RomanNumber {
+  def romanNumberOf(value: String) = new RomanNumber(value)
+
+  def arabicNumberOf(value: Char) = value match {
     case 'I' => 1
     case 'V' => 5
     case 'X' => 10
@@ -59,12 +64,6 @@ class RomanNumber(input: String) {
     case 'C' => 100
     case 'D' => 500
     case 'M' => 1000
-  }
-}
-
-object RomanNumber {
-  def romanNumberOf(value: String) = {
-      new RomanNumber(value)
   }
 }
 
