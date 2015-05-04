@@ -3,7 +3,7 @@ package org.kata
 import org.scalatest._
 import org.scalatest.prop.TableDrivenPropertyChecks._
 
-class RomanNumberSpec extends FlatSpec with Matchers {
+class RomanNumeralSpec extends FlatSpec with Matchers {
 
   val scenarios =
     Table(
@@ -26,10 +26,10 @@ class RomanNumberSpec extends FlatSpec with Matchers {
       ("MMMDCCCXLIV", 3844)
     )
 
-  "A roman number" should "be easily converted to right arabic number" in {
+  "A roman numeral" should "be easily converted to right arabic numeral" in {
 
     forAll (scenarios) { (romanValue, arabic) =>
-      RomanNumber(romanValue).toArabic should be (arabic)
+      RomanNumeral(romanValue).toArabic should be (arabic)
     }
   }
 }
