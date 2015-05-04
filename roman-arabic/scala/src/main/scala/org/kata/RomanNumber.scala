@@ -1,8 +1,6 @@
 package org.kata
 
-import RomanNumber.arabicNumberOf
-
-class RomanNumber(private val romanNumeral: String) {
+case class RomanNumber(private val romanNumeral: String) {
 
   def toArabic: ArabicNumber = {
     reduce(romanNumeral.toList, ArabicNumber(0))
@@ -16,12 +14,8 @@ class RomanNumber(private val romanNumeral: String) {
     case first :: rest =>
       reduce(rest, arabicNumber + arabicNumberOf(first))
   }
-}
 
-object RomanNumber {
-  def romanNumberOf(value: String) = new RomanNumber(value)
-
-  def arabicNumberOf(value: Char) = value match {
+  private def arabicNumberOf(value: Char) = value match {
     case 'I' => ArabicNumber(1)
     case 'V' => ArabicNumber(5)
     case 'X' => ArabicNumber(10)
@@ -31,4 +25,3 @@ object RomanNumber {
     case 'M' => ArabicNumber(1000)
   }
 }
-
