@@ -1,9 +1,9 @@
 package org.kata
 
-case class RomanNumber(private val romanNumeral: String) {
+case class RomanNumber(private val romanNumber: String) {
 
   def toArabic: ArabicNumber = {
-    reduce(romanNumeral.toList, ArabicNumber(0))
+    reduce(romanNumber.toList, ArabicNumber(0))
   }
 
   private def reduce(romanNumerals: List[Char], arabicNumber: ArabicNumber): ArabicNumber = romanNumerals match {
