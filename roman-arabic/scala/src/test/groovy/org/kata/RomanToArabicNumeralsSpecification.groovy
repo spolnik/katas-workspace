@@ -3,14 +3,14 @@ package org.kata
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static org.kata.RomanNumber.romanNumberOf
+import static RomanNumber.romanNumberOf
 
 @Unroll
 class RomanToArabicNumeralsSpecification extends Specification {
 
     def "The arabic conversion of #value is #arabic"() {
         expect:
-        romanNumberOf(value).toArabic() == arabic
+        RomanNumber.romanNumberOf(value).toArabic() == arabic
 
         where:
         value   ||   arabic
