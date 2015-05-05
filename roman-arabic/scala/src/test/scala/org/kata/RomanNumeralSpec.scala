@@ -22,14 +22,31 @@ class RomanNumeralSpec extends FlatSpec with Matchers {
       ("MCMLIV",      1954),
       ("MCMXC",       1990),
       ("MMXIV",       2014),
-      ("XXXXXX",      60),
       ("MMMDCCCXLIV", 3844)
     )
 
-  "A roman numeral" should "be easily converted to right arabic numeral" in {
+
+  "A roman numeral" should "be converted to arabic numeral" in {
 
     forAll (scenarios) { (romanValue, arabic) =>
       RomanNumeral(romanValue).toArabic should be (arabic)
     }
+  }
+
+  val failureScenarios =
+    List(
+      "IIII",
+      "IIV",
+      "IXIX",
+    "XXXXXX"
+    )
+
+  "An incorrect roman numeral" should "throw exception" in {
+
+    failureScenarios.foreach( roman =>
+      intercept[IllegalArgumentException] {
+        RomanNumeral(roman).toArabic
+      }
+    )
   }
 }
