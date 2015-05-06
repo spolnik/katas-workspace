@@ -7,7 +7,7 @@ import spock.lang.Unroll
 @Unroll
 class RomanNumeralSpecification extends Specification {
 
-    def "The arabic conversion of #value is #arabic"() {
+    def "The arabic conversion of single numeral #value is #arabic"() {
         expect:
         romanNumeralOf(value).toArabic() == arabic
 
@@ -22,15 +22,23 @@ class RomanNumeralSpecification extends Specification {
         "M"   || 1000
     }
 
-    def "The arabic conversion of multi letter #value is #arabic"() {
+    def "The arabic conversion of additive multiple numerals #value is #arabic"() {
+        expect:
+        romanNumeralOf(value).toArabic() == arabic
+
+        where:
+        value         || arabic
+        "VI"          || 6
+        "III"         || 3
+    }
+
+    def "The arabic conversion of reductive multiple numerals #value is #arabic"() {
         expect:
         romanNumeralOf(value).toArabic() == arabic
 
         where:
         value         || arabic
         "IV"          || 4
-        "VI"          || 6
-        "III"         || 3
         "XCIV"        || 94
         "MCMLIV"      || 1954
         "MCMXC"       || 1990
