@@ -51,7 +51,8 @@ class RomanNumeralSpecification extends Specification {
                 "VV",
                 "IIV",
                 "IXIX",
-                "XXXXXX"]
+                "XXXXXX",
+                ""]
     }
 
     def romanNumeralOf(String value) {

@@ -17,6 +17,7 @@ case class RomanNumeral(private val romanNumeral: String) {
   private val correctRomanNumeralPattern = "^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$".r
 
   private def checkIfValid(romanNumeral: String) =  romanNumeral match {
+    case null | "" => throw new IllegalArgumentException("Roman numeral cannot be null nor empty")
     case correctRomanNumeralPattern(a,b,c) => true
     case _ => throw new IllegalArgumentException("Invalid roman numeral: " + romanNumeral)
   }
