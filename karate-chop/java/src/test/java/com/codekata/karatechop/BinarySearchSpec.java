@@ -17,7 +17,9 @@ public class BinarySearchSpec {
     @Before
     public void setUp() throws Exception {
 
-        binarySearch = new BinarySearch();
+//        binarySearch = new DummyBinarySearch();
+//        binarySearch = new IterativeBinarySearch();
+        binarySearch = new RecursiveBinarySearch();
     }
 
     @Test
