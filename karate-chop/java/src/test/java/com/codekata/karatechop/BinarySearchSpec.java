@@ -31,7 +31,7 @@ public class BinarySearchSpec {
     @Test
     public void returns_0_when_we_look_for_a_first_item() throws Exception {
 
-        assertThat(binarySearch.chop(3, array(1,3,5))).isEqualTo(0);
+        assertThat(binarySearch.chop(1, array(1))).isEqualTo(0);
     }
 
     private int[] array(int... elements) {
