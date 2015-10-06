@@ -11,3 +11,4 @@ Algorithm & language:
 Frameworks:
 * junit
 * assertj
+* JUnitParams

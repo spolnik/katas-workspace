@@ -1,11 +1,15 @@
 package com.codekata.karatechop;
 
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static com.codekata.karatechop.BinarySearch.NOT_FOUND;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@RunWith(JUnitParamsRunner.class)
 public class BinarySearchSpec {
 
     private BinarySearch binarySearch;
@@ -50,6 +54,13 @@ public class BinarySearchSpec {
     public void returns_2_when_we_look_for_5_in_array_of_1_3_5() throws Exception {
 
         assertThat(binarySearch.chop(5, array(1,3,5))).isEqualTo(2);
+    }
+
+    @Test
+    @Parameters({"0", "2", "4", "6"})
+    public void returns_not_found_when_we_look_for_absent_element_in_array_of_1_3_5(int numberToFind) throws Exception {
+
+        assertThat(binarySearch.chop(numberToFind, array(1,3,5))).isEqualTo(NOT_FOUND);
     }
 
     private int[] array(int... elements) {
