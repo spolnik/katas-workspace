@@ -29,7 +29,7 @@ public class BinarySearchSpec {
     }
 
     @Test
-    public void returns_0_when_we_look_for_a_first_item() throws Exception {
+    public void returns_0_when_we_look_for_the_only_item_in_the_array() throws Exception {
 
         assertThat(binarySearch.chop(1, array(1))).isEqualTo(0);
     }

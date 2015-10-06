@@ -13,6 +13,6 @@ public class BinarySearch {
             }
         }
 
-        return -1;
+        return NOT_FOUND;
     }
 }
