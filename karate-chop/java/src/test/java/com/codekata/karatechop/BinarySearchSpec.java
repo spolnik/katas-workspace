@@ -17,8 +17,9 @@ public class BinarySearchSpec {
     }
 
     @Test
-    public void returns_minus_one_if_looking_in_empty_array() throws Exception {
+    public void returns_not_found_if_looking_in_empty_array() throws Exception {
 
-        assertThat(binarySearch.chop(3, EMPTY_ARRAY)).isEqualTo(-1);
+        assertThat(binarySearch.chop(3, EMPTY_ARRAY))
+                .isEqualTo(BinarySearch.NOT_FOUND);
     }
 }
