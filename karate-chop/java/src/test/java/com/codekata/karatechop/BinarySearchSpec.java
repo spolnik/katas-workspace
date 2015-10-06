@@ -63,6 +63,23 @@ public class BinarySearchSpec {
         assertThat(binarySearch.chop(numberToFind, array(1,3,5))).isEqualTo(NOT_FOUND);
     }
 
+    @Test
+    @Parameters({
+            "1, 0",
+            "3, 1",
+            "5, 2",
+            "7, 3",
+            "0, -1",
+            "2, -1",
+            "4, -1",
+            "6, -1",
+            "8, -1",
+    })
+    public void finds_number_in_array_of_1_3_5_7(int numberToFind, int result) throws Exception {
+
+        assertThat(binarySearch.chop(numberToFind, array(1,3,5,7))).isEqualTo(result);
+    }
+
     private int[] array(int... elements) {
         return elements;
     }
