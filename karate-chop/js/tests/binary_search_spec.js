@@ -10,15 +10,27 @@ describe('binary search', () => {
     describe('chop()', () => {
         var tests = [
             {numberToFind: 3, inputNumbers: [],  expected: -1},
+
             {numberToFind: 3, inputNumbers: [1],  expected: -1},
             {numberToFind: 1, inputNumbers: [1],  expected: 0},
+
             {numberToFind: 1, inputNumbers: [1,3,5],  expected: 0},
             {numberToFind: 3, inputNumbers: [1,3,5],  expected: 1},
             {numberToFind: 5, inputNumbers: [1,3,5],  expected: 2},
             {numberToFind: 0, inputNumbers: [1,3,5],  expected: -1},
             {numberToFind: 2, inputNumbers: [1,3,5],  expected: -1},
             {numberToFind: 4, inputNumbers: [1,3,5],  expected: -1},
-            {numberToFind: 6, inputNumbers: [1,3,5],  expected: -1}
+            {numberToFind: 6, inputNumbers: [1,3,5],  expected: -1},
+
+            {numberToFind: 1, inputNumbers: [1,3,5,7], expected: 0},
+            {numberToFind: 3, inputNumbers: [1,3,5,7], expected: 1},
+            {numberToFind: 5, inputNumbers: [1,3,5,7], expected: 2},
+            {numberToFind: 7, inputNumbers: [1,3,5,7], expected: 3},
+            {numberToFind: 0, inputNumbers: [1,3,5,7], expected: -1},
+            {numberToFind: 2, inputNumbers: [1,3,5,7], expected: -1},
+            {numberToFind: 4, inputNumbers: [1,3,5,7], expected: -1},
+            {numberToFind: 6, inputNumbers: [1,3,5,7], expected: -1},
+            {numberToFind: 8, inputNumbers: [1,3,5,7], expected: -1}
         ];
 
         tests.forEach((test) => {
