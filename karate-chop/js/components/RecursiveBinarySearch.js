@@ -1,6 +1,6 @@
 "use strict";
 
-class IterativeBinarySearch {
+class RecursiveBinarySearch {
 
     chop(numberToFind, inputNumbers) {
 
@@ -10,23 +10,24 @@ class IterativeBinarySearch {
                 return Number.parseInt((imin + imax) / 2);
             }
 
-            while (imin <= imax) {
+            if (imax < imin) {
+                return -1;
+            } else {
+
                 let imid = midpoint(imin, imax);
 
-                if (inputNumbers[imid] === numberToFind) {
-                    return imid;
+                if (inputNumbers[imid] > numberToFind) {
+                    return binarySearch(inputNumbers, numberToFind, imin, imid - 1);
                 } else if (inputNumbers[imid] < numberToFind) {
-                    imin = imid + 1;
+                    return binarySearch(inputNumbers, numberToFind, imid + 1, imax);
                 } else {
-                    imax = imid - 1;
+                    return imid;
                 }
             }
-
-            return -1;
         }
 
         return binarySearch(inputNumbers, numberToFind, 0, inputNumbers.length - 1);
     }
 }
 
-module.exports = IterativeBinarySearch;
+module.exports = RecursiveBinarySearch;
