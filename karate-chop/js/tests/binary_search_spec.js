@@ -7,19 +7,26 @@ describe('binary search', () => {
         this.binary_search = new DummyBinarySearch();
     });
 
-    describe('chop(x, [])', () => {
-        it('should return -1 when we look for 3 in []', () =>
-            expect(this.binary_search.chop(3, [])).to.equal(-1)
-        );
-    });
+    describe('chop()', () => {
+        var tests = [
+            {numberToFind: 3, inputNumbers: [],  expected: -1},
+            {numberToFind: 3, inputNumbers: [1],  expected: -1},
+            {numberToFind: 1, inputNumbers: [1],  expected: 0},
+            {numberToFind: 1, inputNumbers: [1,3,5],  expected: 0},
+            {numberToFind: 3, inputNumbers: [1,3,5],  expected: 1},
+            {numberToFind: 5, inputNumbers: [1,3,5],  expected: 2},
+            {numberToFind: 0, inputNumbers: [1,3,5],  expected: -1},
+            {numberToFind: 2, inputNumbers: [1,3,5],  expected: -1},
+            {numberToFind: 4, inputNumbers: [1,3,5],  expected: -1},
+            {numberToFind: 6, inputNumbers: [1,3,5],  expected: -1}
+        ];
 
-    describe('chop(x, [1])', () => {
-        it('should return -1 when we look for 3 in [1]', () =>
-            expect(this.binary_search.chop(3, [1])).to.equal(-1)
-        );
-
-        it('should return 0 when we look for 1 in [1]', () =>
-            expect(this.binary_search.chop(1, [1])).to.equal(0)
-        );
+        tests.forEach((test) => {
+            it(`returns ${test.expected} when we look for ${test.numberToFind} in [${test.inputNumbers.toString()}]`, () =>
+                expect(this.binary_search.chop(test.numberToFind, test.inputNumbers)).to.equal(
+                    test.expected
+                )
+            );
+        });
     });
 });
