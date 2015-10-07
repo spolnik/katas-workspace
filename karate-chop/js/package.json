@@ -1,0 +1,15 @@
+{
+  "name": "karate-chop",
+  "version": "1.0.0",
+  "description": "Karate Chop kata",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "keywords": [
+    "coding",
+    "kata"
+  ],
+  "author": "Jacek Spolnik",
+  "license": "MIT"
+}
