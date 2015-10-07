@@ -7,11 +7,13 @@ describe('binary search', () => {
         this.binary_search = new DummyBinarySearch();
     });
 
-    describe('chop()', () => {
+    describe('chop(x, [])', () => {
         it('should return -1 when we look for 3 in []', () =>
-            assert.equal(-1, this.binary_search.chop(3, []))
+                assert.equal(-1, this.binary_search.chop(3, []))
         );
+    });
 
+    describe('chop(x, [1])', () => {
         it('should return -1 when we look for 3 in [1]', () =>
             assert.equal(-1, this.binary_search.chop(3, [1]))
         );
