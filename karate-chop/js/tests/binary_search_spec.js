@@ -1,10 +1,13 @@
-var expect = require('chai').expect;
-var DummyBinarySearch = require('../components/DummyBinarySearch');
+'use strict';
+
+let expect = require('chai').expect;
+let DummyBinarySearch = require('../components/DummyBinarySearch');
+let IterativeBinarySearch = require('../components/IterativeBinarySearch');
 
 describe('binary search', () => {
 
     before(() => {
-        this.binary_search = new DummyBinarySearch();
+        this.binary_search = new IterativeBinarySearch();
     });
 
     describe('chop()', () => {
@@ -13,6 +16,10 @@ describe('binary search', () => {
 
             {numberToFind: 3, inputNumbers: [1],  expected: -1},
             {numberToFind: 1, inputNumbers: [1],  expected: 0},
+
+            {numberToFind: 1, inputNumbers: [1, 3], expected: 0},
+            {numberToFind: 3, inputNumbers: [1, 3], expected: 1},
+            {numberToFind: 0, inputNumbers: [1, 3], expected: -1},
 
             {numberToFind: 1, inputNumbers: [1,3,5],  expected: 0},
             {numberToFind: 3, inputNumbers: [1,3,5],  expected: 1},
