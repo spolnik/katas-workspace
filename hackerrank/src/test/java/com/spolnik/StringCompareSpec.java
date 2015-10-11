@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class JavaStringCompareSpec {
+public class StringCompareSpec {
 
     @Test
     public void initial_spec() throws Exception {
