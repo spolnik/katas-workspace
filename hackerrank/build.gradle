@@ -8,5 +8,6 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.12'
 
     testCompile 'junit:junit:4.12',
-            'org.assertj:assertj-core:3.2.0'
+            'org.assertj:assertj-core:3.2.0',
+            'pl.pragmatists:JUnitParams:1.0.4'
 }
