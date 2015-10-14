@@ -7,7 +7,7 @@ import org.craftedsw.harddependencies.trip.TripRepository;
 import org.craftedsw.harddependencies.user.User;
 import org.craftedsw.harddependencies.user.UserSession;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TripService {
@@ -44,12 +44,11 @@ public class TripService {
 
     private List<Trip> getUserTripsIfLoggedUserIsAFriend(User user, User loggedUser) {
 
-        for (User friend : user.getFriends()) {
-            if (friend.equals(loggedUser)) {
-                return tripRepository.findTripsByUser(user);
-            }
-        }
-
-        return new ArrayList<>();
+        return user.getFriends()
+                .stream()
+                .filter(friend -> friend.equals(loggedUser))
+                .findFirst()
+                    .map(skipped -> tripRepository.findTripsByUser(user))
+                .orElse(Collections.emptyList());
     }
 }
