@@ -7,6 +7,8 @@ import org.craftedsw.harddependencies.user.User
 import org.craftedsw.harddependencies.user.UserSession
 import spock.lang.Specification
 
+import static org.craftedsw.harddependencies.UserBuilder.aUser
+
 class TripServiceSpec extends Specification {
 
     User GUEST = null
@@ -43,7 +45,7 @@ class TripServiceSpec extends Specification {
         setup:
         userSession.getLoggedUser() >> REGISTERED_USER
 
-        def stranger = UserBuilder.aUser()
+        def stranger = aUser()
             .withFriends(ANOTHER_USER)
             .withTrips(KRAKOW)
             .build()
@@ -59,7 +61,7 @@ class TripServiceSpec extends Specification {
         setup:
         userSession.getLoggedUser() >> REGISTERED_USER
 
-        def friend = UserBuilder.aUser()
+        def friend = aUser()
             .withFriends(REGISTERED_USER, ANOTHER_USER)
             .withTrips(KRAKOW, LONDON)
             .build()
@@ -71,31 +73,5 @@ class TripServiceSpec extends Specification {
 
         then:
         trips.first() == KRAKOW
-    }
-
-    static class UserBuilder {
-        def user = new User()
-
-        def withFriends(User... users) {
-            users.each { friend ->
-                user.addFriend(friend)
-            }
-            this
-        }
-
-        def withTrips(Trip... trips) {
-            trips.each { trip ->
-                user.addTrip(trip)
-            }
-            this
-        }
-
-        def build() {
-            return user
-        }
-
-        static UserBuilder aUser() {
-            return new UserBuilder()
-        }
     }
 }
