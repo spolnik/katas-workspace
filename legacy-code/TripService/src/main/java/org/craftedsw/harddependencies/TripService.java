@@ -23,19 +23,19 @@ public class TripService {
 
     public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
 
-        List<Trip> tripList = new ArrayList<>();
-
         User loggedUser = userSession.getLoggedUser();
-        boolean isFriend = false;
 
         if (loggedUser == null) {
             throw new UserNotLoggedInException();
         }
 
-        return getTripsForUser(user, tripList, loggedUser, isFriend);
+        return getTripsForUser(user, loggedUser);
     }
 
-    private List<Trip> getTripsForUser(User user, List<Trip> tripList, User loggedUser, boolean isFriend) {
+    private List<Trip> getTripsForUser(User user, User loggedUser) {
+
+        boolean isFriend = false;
+        List<Trip> tripList = new ArrayList<>();
 
         for (User friend : user.getFriends()) {
             if (friend.equals(loggedUser)) {
