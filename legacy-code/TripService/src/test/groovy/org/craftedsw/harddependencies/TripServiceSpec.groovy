@@ -14,12 +14,11 @@ class TripServiceSpec extends Specification {
     User A_USER = new User()
     User ANOTHER_USER = new User()
 
-    Trip POLAND = new Trip()
+    Trip KRAKOW = new Trip()
+    Trip LONDON = new Trip()
 
     TripService tripService
-
     UserSession userSession
-
     TripRepository tripRepository
 
     def setup() {
@@ -44,9 +43,10 @@ class TripServiceSpec extends Specification {
         setup:
         userSession.getLoggedUser() >> REGISTERED_USER
 
-        def stranger = new User()
-        stranger.addFriend(ANOTHER_USER)
-        stranger.addTrip(POLAND)
+        def stranger = UserBuilder.aUser()
+            .withFriends(ANOTHER_USER)
+            .withTrips(KRAKOW)
+            .build()
 
         when:
         def trips = tripService.getTripsByUser(stranger)
@@ -59,15 +59,43 @@ class TripServiceSpec extends Specification {
         setup:
         userSession.getLoggedUser() >> REGISTERED_USER
 
-        def friend = new User()
-        friend.addFriend(REGISTERED_USER)
-        friend.addTrip(POLAND)
+        def friend = UserBuilder.aUser()
+            .withFriends(REGISTERED_USER, ANOTHER_USER)
+            .withTrips(KRAKOW, LONDON)
+            .build()
+
         tripRepository.findTripsByUser(friend) >> friend.trips()
 
         when:
         def trips = tripService.getTripsByUser(friend)
 
         then:
-        trips.first() == POLAND
+        trips.first() == KRAKOW
+    }
+
+    static class UserBuilder {
+        def user = new User()
+
+        def withFriends(User... users) {
+            users.each { friend ->
+                user.addFriend(friend)
+            }
+            this
+        }
+
+        def withTrips(Trip... trips) {
+            trips.each { trip ->
+                user.addTrip(trip)
+            }
+            this
+        }
+
+        def build() {
+            return user
+        }
+
+        static UserBuilder aUser() {
+            return new UserBuilder()
+        }
     }
 }
