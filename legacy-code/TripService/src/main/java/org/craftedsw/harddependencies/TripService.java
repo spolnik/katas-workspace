@@ -44,11 +44,8 @@ public class TripService {
 
     private List<Trip> getUserTripsIfLoggedUserIsAFriend(User user, User loggedUser) {
 
-        return user.getFriends()
-                .stream()
-                .filter(friend -> friend.equals(loggedUser))
-                .findFirst()
-                    .map(skipped -> tripRepository.findTripsByUser(user))
-                .orElse(Collections.emptyList());
+        return user.isFriendsWith(loggedUser)
+                ? tripRepository.findTripsByUser(user)
+                : Collections.emptyList();
     }
 }
