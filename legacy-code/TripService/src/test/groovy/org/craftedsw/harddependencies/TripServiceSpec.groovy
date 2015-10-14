@@ -10,11 +10,11 @@ import spock.lang.Specification
 class TripServiceSpec extends Specification {
 
     User GUEST = null
-    User LOGGED_IN_USER = new User()
+    User REGISTERED_USER = new User()
     User A_USER = new User()
+    User ANOTHER_USER = new User()
 
-    List<Trip> FRIEND_TRIPS
-    Trip FRIEND_TRIP = new Trip()
+    Trip POLAND = new Trip()
 
     TripService tripService
 
@@ -40,28 +40,33 @@ class TripServiceSpec extends Specification {
         thrown(UserNotLoggedInException)
     }
 
-    def "returns empty trip list for user who is not a friend"() {
+    def "returns no trips when users are not friends"() {
         setup:
-        userSession.getLoggedUser() >> LOGGED_IN_USER
+        userSession.getLoggedUser() >> REGISTERED_USER
+
+        def stranger = new User()
+        stranger.addFriend(ANOTHER_USER)
+        stranger.addTrip(POLAND)
 
         when:
-        FRIEND_TRIPS = tripService.getTripsByUser(A_USER)
+        def trips = tripService.getTripsByUser(stranger)
 
         then:
-        FRIEND_TRIPS.empty
+        trips.empty
     }
 
-    def "returns list of friend trips for user who is a friend"() {
+    def "returns friend trips for users who are friends"() {
         setup:
-        userSession.getLoggedUser() >> LOGGED_IN_USER
-        A_USER.addFriend(LOGGED_IN_USER)
-        tripRepository.findTripsByUser(A_USER) >> [FRIEND_TRIP]
+        userSession.getLoggedUser() >> REGISTERED_USER
+
+        def friend = new User()
+        friend.addFriend(REGISTERED_USER)
+        tripRepository.findTripsByUser(friend) >> [POLAND]
 
         when:
-        FRIEND_TRIPS = tripService.getTripsByUser(A_USER)
+        def trips = tripService.getTripsByUser(friend)
 
         then:
-        !FRIEND_TRIPS.empty
-        FRIEND_TRIPS.first() == FRIEND_TRIP
+        trips.first() == POLAND
     }
 }
