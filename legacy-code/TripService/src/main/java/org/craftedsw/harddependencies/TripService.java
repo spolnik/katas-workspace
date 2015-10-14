@@ -10,10 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TripService {
+
+    private UserSession userSession;
+
+    public TripService() {
+        this(UserSession.getInstance());
+    }
+
+    public TripService(UserSession userSession) {
+        this.userSession = userSession;
+    }
+
     public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
-        List<Trip> tripList = new ArrayList<Trip>();
-        User loggedUser = UserSession.getInstance().getLoggedUser();
+
+        List<Trip> tripList = new ArrayList<>();
+
+        User loggedUser = userSession.getLoggedUser();
         boolean isFriend = false;
+
         if (loggedUser != null) {
             for (User friend : user.getFriends()) {
                 if (friend.equals(loggedUser)) {
