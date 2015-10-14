@@ -5,41 +5,34 @@ import org.craftedsw.harddependencies.trip.Trip;
 import org.craftedsw.harddependencies.trip.TripDAOWrapper;
 import org.craftedsw.harddependencies.trip.TripRepository;
 import org.craftedsw.harddependencies.user.User;
-import org.craftedsw.harddependencies.user.UserSession;
 
 import java.util.Collections;
 import java.util.List;
 
 public class TripService {
 
-    private final UserSession userSession;
     private final TripRepository tripRepository;
 
     public TripService() {
-        this(UserSession.getInstance(), new TripDAOWrapper());
+        this(new TripDAOWrapper());
     }
 
-    public TripService(UserSession userSession, TripRepository tripRepository) {
-        this.userSession = userSession;
+    public TripService(TripRepository tripRepository) {
         this.tripRepository = tripRepository;
     }
 
-    public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
+    public List<Trip> getTripsByUser(User user, User loggedInUser) throws UserNotLoggedInException {
 
-        User loggedUser = checkAndReturnUserIfUserIsLoggedIn(
-                userSession.getLoggedUser()
-        );
+        checkIfUserIsLoggedIn(loggedInUser);
 
-        return getUserTripsIfLoggedUserIsAFriend(user, loggedUser);
+        return getUserTripsIfLoggedUserIsAFriend(user, loggedInUser);
     }
 
-    private User checkAndReturnUserIfUserIsLoggedIn(User loggedUser) throws UserNotLoggedInException {
+    private void checkIfUserIsLoggedIn(User loggedUser) throws UserNotLoggedInException {
 
         if (loggedUser == null) {
             throw new UserNotLoggedInException();
         }
-
-        return loggedUser;
     }
 
     private List<Trip> getUserTripsIfLoggedUserIsAFriend(User user, User loggedUser) {

@@ -1,10 +1,8 @@
 package org.craftedsw.harddependencies
-
 import org.craftedsw.harddependencies.exception.UserNotLoggedInException
 import org.craftedsw.harddependencies.trip.Trip
 import org.craftedsw.harddependencies.trip.TripRepository
 import org.craftedsw.harddependencies.user.User
-import org.craftedsw.harddependencies.user.UserSession
 import spock.lang.Specification
 
 import static org.craftedsw.harddependencies.UserBuilder.aUser
@@ -20,22 +18,17 @@ class TripServiceSpec extends Specification {
     Trip LONDON = new Trip()
 
     TripService tripService
-    UserSession userSession
     TripRepository tripRepository
 
     def setup() {
-        userSession = Mock(UserSession)
         tripRepository = Mock(TripRepository)
-
-        tripService = new TripService(userSession, tripRepository)
+        tripService = new TripService(tripRepository)
     }
 
     def "validates that user is logged in"() {
-        setup:
-        userSession.getLoggedUser() >> GUEST
 
         when:
-        tripService.getTripsByUser(A_USER)
+        tripService.getTripsByUser(A_USER, GUEST)
 
         then:
         thrown(UserNotLoggedInException)
@@ -43,15 +36,13 @@ class TripServiceSpec extends Specification {
 
     def "returns no trips when users are not friends"() {
         setup:
-        userSession.getLoggedUser() >> REGISTERED_USER
-
         def stranger = aUser()
             .withFriends(ANOTHER_USER)
             .withTrips(KRAKOW)
             .build()
 
         when:
-        def trips = tripService.getTripsByUser(stranger)
+        def trips = tripService.getTripsByUser(stranger, REGISTERED_USER)
 
         then:
         trips.empty
@@ -59,8 +50,6 @@ class TripServiceSpec extends Specification {
 
     def "returns friend trips for users who are friends"() {
         setup:
-        userSession.getLoggedUser() >> REGISTERED_USER
-
         def friend = aUser()
             .withFriends(REGISTERED_USER, ANOTHER_USER)
             .withTrips(KRAKOW, LONDON)
@@ -69,7 +58,7 @@ class TripServiceSpec extends Specification {
         tripRepository.findTripsByUser(friend) >> friend.trips()
 
         when:
-        def trips = tripService.getTripsByUser(friend)
+        def trips = tripService.getTripsByUser(friend, REGISTERED_USER)
 
         then:
         trips.first() == KRAKOW
