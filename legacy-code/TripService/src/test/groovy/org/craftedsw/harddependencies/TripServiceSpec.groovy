@@ -9,15 +9,18 @@ import spock.lang.Specification
 
 class TripServiceSpec extends Specification {
 
+    User GUEST = null
+    User LOGGED_IN_USER = new User()
+    User A_USER = new User()
+
+    List<Trip> FRIEND_TRIPS
+    Trip FRIEND_TRIP = new Trip()
+
     TripService tripService
 
     UserSession userSession
+
     TripRepository tripRepository
-
-    List<Trip> trips
-
-    Trip friendTrip
-    User friend
 
     def setup() {
         userSession = Mock(UserSession)
@@ -26,47 +29,39 @@ class TripServiceSpec extends Specification {
         tripService = new TripService(userSession, tripRepository)
     }
 
-    def "throws UserNotLoggedInException if there is no user logged in"() {
+    def "validates that user is logged in"() {
         setup:
-
-        userSession.getLoggedUser() >> null
+        userSession.getLoggedUser() >> GUEST
 
         when:
-        tripService.getTripsByUser(new User())
+        tripService.getTripsByUser(A_USER)
 
         then:
-        def e = thrown(UserNotLoggedInException)
-        e.cause == null
+        thrown(UserNotLoggedInException)
     }
 
     def "returns empty trip list for user who is not a friend"() {
         setup:
-        def loggedUser = new User()
-        userSession.getLoggedUser() >> loggedUser
+        userSession.getLoggedUser() >> LOGGED_IN_USER
 
         when:
-        trips = tripService.getTripsByUser(new User())
+        FRIEND_TRIPS = tripService.getTripsByUser(A_USER)
 
         then:
-        trips.empty
+        FRIEND_TRIPS.empty
     }
 
     def "returns list of friend trips for user who is a friend"() {
         setup:
-        def loggedUser = new User()
-        userSession.getLoggedUser() >> loggedUser
-
-        friend = new User()
-        friend.addFriend(loggedUser)
-        friend.addTrip(friendTrip)
-
-        tripRepository.findTripsByUser(friend) >> [friendTrip]
+        userSession.getLoggedUser() >> LOGGED_IN_USER
+        A_USER.addFriend(LOGGED_IN_USER)
+        tripRepository.findTripsByUser(A_USER) >> [FRIEND_TRIP]
 
         when:
-        trips = tripService.getTripsByUser(friend)
+        FRIEND_TRIPS = tripService.getTripsByUser(A_USER)
 
         then:
-        !trips.empty
-        trips.first() == friendTrip
+        !FRIEND_TRIPS.empty
+        FRIEND_TRIPS.first() == FRIEND_TRIP
     }
 }
