@@ -2,7 +2,7 @@ package org.craftedsw.harddependencies;
 
 import org.craftedsw.harddependencies.exception.UserNotLoggedInException;
 import org.craftedsw.harddependencies.trip.Trip;
-import org.craftedsw.harddependencies.trip.TripDAOWrapper;
+import org.craftedsw.harddependencies.trip.TripDAO;
 import org.craftedsw.harddependencies.trip.TripRepository;
 import org.craftedsw.harddependencies.user.User;
 
@@ -14,7 +14,7 @@ public class TripService {
     private final TripRepository tripRepository;
 
     public TripService() {
-        this(new TripDAOWrapper());
+        this(new TripDAO());
     }
 
     public TripService(TripRepository tripRepository) {
@@ -38,7 +38,7 @@ public class TripService {
     private List<Trip> getUserTripsIfLoggedUserIsAFriend(User user, User loggedUser) {
 
         return user.isFriendsWith(loggedUser)
-                ? tripRepository.findTripsByUser(user)
+                ? tripRepository.tripsBy(user)
                 : Collections.emptyList();
     }
 }

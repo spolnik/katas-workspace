@@ -55,7 +55,7 @@ class TripServiceSpec extends Specification {
             .withTrips(KRAKOW, LONDON)
             .build()
 
-        tripRepository.findTripsByUser(friend) >> friend.trips()
+        tripRepository.tripsBy(friend) >> friend.trips()
 
         when:
         def trips = tripService.getTripsByUser(friend, REGISTERED_USER)
