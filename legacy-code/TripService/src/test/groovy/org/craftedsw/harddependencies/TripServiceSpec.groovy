@@ -61,7 +61,8 @@ class TripServiceSpec extends Specification {
 
         def friend = new User()
         friend.addFriend(REGISTERED_USER)
-        tripRepository.findTripsByUser(friend) >> [POLAND]
+        friend.addTrip(POLAND)
+        tripRepository.findTripsByUser(friend) >> friend.trips()
 
         when:
         def trips = tripService.getTripsByUser(friend)
